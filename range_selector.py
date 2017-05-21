@@ -121,7 +121,7 @@ class RangeSelector(QtGui.QDialog):
 
     def update_display(self):
         i = self.weight_selector.currentIndex()
-        for token, button in self.grid_buttons.iteritems():
+        for token, button in self.grid_buttons.items():
             button.setChecked(button.weights[i])
         self.set_percent_label()
         self.set_single_hand_input()
@@ -146,7 +146,7 @@ class RangeSelector(QtGui.QDialog):
         self.update_display()
 
     def clear(self):
-        for button in self.grid_buttons.values():
+        for button in list(self.grid_buttons.values()):
             button.weights = [False, False, False, False]
         self.single_hands = [[], [], [], []]
         for spinner in self.weight_spinners:
@@ -154,7 +154,7 @@ class RangeSelector(QtGui.QDialog):
 
     def load_data(self):
         data = saved_ranges.load()
-        for (name, range_str) in data.iteritems():
+        for (name, range_str) in data.items():
             self.saved_ranges.addItem(name, userData=range_str)
         if len(data) == 0:
             self.saved_ranges.addItem("", userData="")
@@ -207,7 +207,7 @@ class RangeSelector(QtGui.QDialog):
 
     def purge_duplicate_singles(self):
         for i in range(len(self.single_hands)):
-            for token, button in self.grid_buttons.iteritems():
+            for token, button in self.grid_buttons.items():
                 if button.weights[i]:
                     hands = [''.join(x)
                              for x in eval7.range_string.token_to_hands(token)]
@@ -256,7 +256,7 @@ class RangeSelector(QtGui.QDialog):
         combo_counts = {"": 6, "s": 4, "o": 12}
         i = i or self.weight_selector.currentIndex()
         combos = 0
-        for button in self.grid_buttons.values():
+        for button in list(self.grid_buttons.values()):
             if button.weights[i]:
                 combos += combo_counts[button.suitedness]
         combos += len(self.single_hands[i])
@@ -264,7 +264,7 @@ class RangeSelector(QtGui.QDialog):
 
     def range_string(self):
         token_list = []
-        for token, button in self.grid_buttons.iteritems():
+        for token, button in self.grid_buttons.items():
             for i, b in enumerate(button.weights):
                 if b:
                     weight = self.weight_spinners[i].value()/100.0

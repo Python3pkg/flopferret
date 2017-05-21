@@ -46,7 +46,7 @@ class HandRange(dict):
         total = sum(self.values())
         if not total == 0.0:
             N = 1.0/total
-            for hand, weight in self.iteritems():
+            for hand, weight in self.items():
                 self[hand] = weight*N
         return total
 

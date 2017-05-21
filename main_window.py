@@ -78,7 +78,7 @@ class MainWindow(QtGui.QWidget):
         layout = QtGui.QGridLayout()
         # Store a dictionary of PercentDisplay outputs for easy update.
         self.outputs = {}
-        for name, probability in self.board_texture.iteritems():
+        for name, probability in self.board_texture.items():
             output = percent_display.PercentDisplayWidget(
                 probability, max_bar_width=100, color="#00BED4"
             )
@@ -146,7 +146,7 @@ class MainWindow(QtGui.QWidget):
         board_string = self.board_input.text().replace(" ", "")
         board = [board_string[i:i+2] for i in range(0, len(board_string)-1, 2)]
         self.board_texture.calculate(range_string, board)
-        for key, output in self.outputs.iteritems():
+        for key, output in self.outputs.items():
             output.setValue(self.board_texture[key])
 
 
